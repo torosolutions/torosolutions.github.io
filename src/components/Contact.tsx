@@ -14,10 +14,17 @@ const Contact: React.FC = () => {
             <p className="text-xl text-blue-100 mb-10 max-w-2xl mx-auto">
               We're excited to hear about your ideas and help you bring them to life. Get in touch with us today!
             </p>
-            <div className="inline-block bg-white text-blue-600 px-8 py-4 rounded-xl font-bold text-xl shadow-lg hover:bg-blue-50 transition-colors">
-              <a href="mailto:toro.solutions.89@gmail.com">
-                toro.solutions.89@gmail.com
-              </a>
+            <div className="flex flex-col items-center gap-6">
+              <div className="inline-block bg-white text-blue-600 px-8 py-4 rounded-xl font-bold text-xl shadow-lg hover:bg-blue-50 transition-colors">
+                <a href="mailto:toro.solutions.89@gmail.com">
+                  toro.solutions.89@gmail.com
+                </a>
+              </div>
+              <div className="inline-block bg-blue-700/50 text-white px-8 py-4 rounded-xl font-bold text-xl border border-blue-400/30 backdrop-blur-sm">
+                <a href="tel:+840775325489">
+                  (+84) 0775 325 489
+                </a>
+              </div>
             </div>
           </div>
         </div>
