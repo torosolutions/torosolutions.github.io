@@ -30,9 +30,16 @@ const Contact: React.FC = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
-                <address className="not-italic">
-                  Verosa Park, Số 39 Đường số 10, Phường Phú Hữu, TP. Hồ Chí Minh, Việt Nam
-                </address>
+                <a 
+                  href="https://www.google.com/maps/search/?api=1&query=Verosa+Park,+S%E1%BB%91+39+%C4%90%C6%B0%E1%BB%9Dng+s%E1%BB%91+10,+Ph%C6%B0%E1%BB%9Dng+Ph%C3%BA+H%E1%BB%AFu,+TP.+H%E1%BB%93+Ch%C3%AD+Minh,+Vi%E1%BB%87t+Nam" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="hover:underline underline-offset-4 transition-all"
+                >
+                  <address className="not-italic">
+                    Verosa Park, Số 39 Đường số 10, Phường Phú Hữu, TP. Hồ Chí Minh, Việt Nam
+                  </address>
+                </a>
               </div>
             </div>
           </div>
