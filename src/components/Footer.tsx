@@ -14,7 +14,8 @@ const Footer: React.FC = () => {
             </p>
           </div>
           <div className="text-sm">
-            &copy; {new Date().getFullYear()} Toro Solutions. All rights reserved.
+            &copy; {new Date().getFullYear()} Toro Solutions. All rights
+            reserved.
           </div>
         </div>
       </div>
