@@ -1,5 +1,5 @@
 import React from 'react';
-import { contactConfig } from '../config';
+import { contactConfig } from '../../config';
 
 const Contact: React.FC = () => {
   return (
