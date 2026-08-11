@@ -25,7 +25,7 @@ const Hero: React.FC = () => {
         <div className="flex flex-wrap justify-center gap-4 mb-10">
           <Link
             to="/id-photo"
-            className="flex items-center gap-3 px-6 py-3.5 bg-white text-gray-900 font-semibold rounded-xl shadow-md border border-gray-200 hover:border-indigo-500 hover:shadow-lg transition-all transform hover:-translate-y-0.5 group"
+            className="flex items-center gap-3 px-6 py-3.5 bg-white text-gray-900 font-semibold rounded-xl shadow-md border border-gray-200 hover:border-indigo-500 hover:shadow-lg transition-all transform hover:-translate-y-0.5 group w-full sm:w-96"
           >
             <div className="w-9 h-9 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center group-hover:bg-indigo-600 group-hover:text-white transition-colors">
               <Camera className="w-5 h-5" />
@@ -41,7 +41,7 @@ const Hero: React.FC = () => {
 
           <Link
             to="/dev-tools"
-            className="flex items-center gap-3 px-6 py-3.5 bg-white text-gray-900 font-semibold rounded-xl shadow-md border border-gray-200 hover:border-blue-500 hover:shadow-lg transition-all transform hover:-translate-y-0.5 group"
+            className="flex items-center gap-3 px-6 py-3.5 bg-white text-gray-900 font-semibold rounded-xl shadow-md border border-gray-200 hover:border-blue-500 hover:shadow-lg transition-all transform hover:-translate-y-0.5 group w-full sm:w-96"
           >
             <div className="w-9 h-9 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-colors">
               <Code2 className="w-5 h-5" />

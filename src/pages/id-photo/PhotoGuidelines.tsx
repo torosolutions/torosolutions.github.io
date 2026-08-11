@@ -29,7 +29,7 @@ const PhotoGuidelines: React.FC = () => {
         <div>
           <h3 className="text-sm font-bold text-gray-900">Photo Guidelines</h3>
           <p className="text-xs text-gray-500">
-            Follow these tips for the best crop & background-fill results.
+            Follow these tips for the best crop & padding results.
           </p>
         </div>
       </div>

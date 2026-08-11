@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 import { RefreshCw, Eye, Grid } from 'lucide-react';
 import type { PresetSize } from '../../constants/idPhotoPresets';
 import { drawIdPhoto } from '../../utils/idPhotoCanvas';
@@ -50,7 +56,11 @@ const CanvasEditor: React.FC<CanvasEditorProps> = ({
 }) => {
   const [showFaceGuide, setShowFaceGuide] = useState<boolean>(true);
   const [showGridGuide, setShowGridGuide] = useState<boolean>(false);
-  const [containerScale, setContainerScale] = useState<number>(1);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const [boxSize, setBoxSize] = useState<{ width: number; height: number }>({
+    width: 0,
+    height: 0,
+  });
 
   const {
     handleMouseDown,
@@ -62,20 +72,31 @@ const CanvasEditor: React.FC<CanvasEditorProps> = ({
     handleWheel,
   } = usePanZoom(pan, setPan, setZoom);
 
-  useEffect(() => {
-    const handleResize = () => {
-      // Calculate responsive scale factor for mobile devices
-      const screenWidth = window.innerWidth;
-      if (screenWidth < 640) {
-        setContainerScale(Math.min(1, (screenWidth - 48) / 360));
-      } else {
-        setContainerScale(1);
+  useLayoutEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const ratio = selectedPreset.widthCm / selectedPreset.heightCm;
+
+    const fitBox = () => {
+      // Fit the crop box to the largest size that fits inside the
+      // container while preserving the preset's aspect ratio.
+      const availW = container.clientWidth * 0.94;
+      const availH = container.clientHeight * 0.9;
+      let width = availW;
+      let height = width / ratio;
+      if (height > availH) {
+        height = availH;
+        width = height * ratio;
       }
+      setBoxSize({ width: Math.round(width), height: Math.round(height) });
     };
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+
+    fitBox();
+    const observer = new ResizeObserver(fitBox);
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, [selectedPreset]);
 
   const renderCanvas = useCallback(() => {
     const canvas = canvasRef.current;
@@ -126,12 +147,15 @@ const CanvasEditor: React.FC<CanvasEditorProps> = ({
   return (
     <>
       {/* Mobile Touch Enabled Canvas Container */}
-      <div className="relative w-full flex justify-center items-center py-4 bg-slate-900 rounded-xl overflow-hidden shadow-inner min-h-[320px] sm:min-h-[400px] select-none touch-none">
+      <div
+        ref={containerRef}
+        className="relative w-full flex justify-center items-center py-4 bg-slate-900 rounded-xl overflow-hidden shadow-inner min-h-[320px] sm:min-h-[500px] select-none touch-none"
+      >
         <div
           className="relative cursor-move overflow-hidden border-2 border-indigo-400 shadow-2xl rounded-xs"
           style={{
-            width: `${Math.round(selectedPreset.widthCm * 70 * containerScale)}px`,
-            height: `${Math.round(selectedPreset.heightCm * 70 * containerScale)}px`,
+            width: `${boxSize.width}px`,
+            height: `${boxSize.height}px`,
           }}
           onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}

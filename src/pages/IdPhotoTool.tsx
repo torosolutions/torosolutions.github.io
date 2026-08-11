@@ -109,7 +109,7 @@ const IdPhotoTool: React.FC = () => {
         </h1>
         <p className="mt-2 text-gray-600 text-xs sm:text-base">
           Crop ID & Passport photos for 2x3, 4x6, 3x2, 3x4, Schengen, US Visa,
-          Japan & Canada. Supports mobile touch gestures, background color fill,
+          Japan & Canada. Supports mobile touch gestures, frame padding colors,
           and high-res ISO date exports!
         </p>
       </div>

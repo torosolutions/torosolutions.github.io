@@ -14,6 +14,7 @@ import {
   FileCode,
   Sparkles,
   FileText,
+  UserCheck,
 } from 'lucide-react';
 
 const Navbar: React.FC = () => {
@@ -232,6 +233,18 @@ const Navbar: React.FC = () => {
                   </Link>
 
                   <Link
+                    to="/dev-tools?tool=qa-profile"
+                    className={`flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-colors ${
+                      isTabActive('qa-profile')
+                        ? 'bg-blue-50 text-blue-700 font-bold'
+                        : 'text-gray-700 hover:bg-blue-50/60 hover:text-blue-600'
+                    }`}
+                  >
+                    <UserCheck className="w-4 h-4 text-blue-500" />
+                    <span>QA User Profile</span>
+                  </Link>
+
+                  <Link
                     to="/dev-tools?tool=base64"
                     className={`flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-colors ${
                       isTabActive('base64')
@@ -418,6 +431,13 @@ const Navbar: React.FC = () => {
                   className="block py-2 text-gray-600 hover:text-blue-600 font-medium"
                 >
                   Random Email Generator
+                </Link>
+                <Link
+                  to="/dev-tools?tool=qa-profile"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block py-2 text-gray-600 hover:text-blue-600 font-medium"
+                >
+                  QA User Profile
                 </Link>
                 <Link
                   to="/dev-tools?tool=base64"
