@@ -1,5 +1,11 @@
 import React, { useMemo } from 'react';
-import { FileText, RefreshCw, Copy, AlignLeft } from 'lucide-react';
+import {
+  FileText,
+  RefreshCw,
+  Copy,
+  AlignLeft,
+  ChevronDown,
+} from 'lucide-react';
 
 import {
   generateLoremIpsumHelper,
@@ -96,30 +102,36 @@ const LipsumTool: React.FC<LipsumToolProps> = ({ copyToClipboard }) => {
           <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
             Unit Type:
           </label>
-          <select
-            value={unit}
-            onChange={(e) => setUnit(e.target.value as LipsumUnit)}
-            className="w-full text-xs font-medium bg-white border border-gray-300 rounded-lg p-2.5 focus:ring-blue-500"
-          >
-            <option value="paragraphs">Paragraphs</option>
-            <option value="sentences">Sentences</option>
-            <option value="words">Words</option>
-          </select>
+          <div className="relative">
+            <select
+              value={unit}
+              onChange={(e) => setUnit(e.target.value as LipsumUnit)}
+              className="w-full text-xs font-medium bg-white border border-gray-300 rounded-lg p-2.5 pr-8 appearance-none focus:ring-blue-500"
+            >
+              <option value="paragraphs">Paragraphs</option>
+              <option value="sentences">Sentences</option>
+              <option value="words">Words</option>
+            </select>
+            <ChevronDown className="w-3.5 h-3.5 text-gray-400 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+          </div>
         </div>
 
         <div>
           <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
             Flavor / Dictionary:
           </label>
-          <select
-            value={flavor}
-            onChange={(e) => setFlavor(e.target.value as LipsumFlavor)}
-            className="w-full text-xs font-medium bg-white border border-gray-300 rounded-lg p-2.5 focus:ring-blue-500"
-          >
-            <option value="classic">Classic Latin (Lorem Ipsum)</option>
-            <option value="hipster">Hipster (Artisanal / Craft)</option>
-            <option value="tech">Corporate / Tech Jargon</option>
-          </select>
+          <div className="relative">
+            <select
+              value={flavor}
+              onChange={(e) => setFlavor(e.target.value as LipsumFlavor)}
+              className="w-full text-xs font-medium bg-white border border-gray-300 rounded-lg p-2.5 pr-8 appearance-none focus:ring-blue-500"
+            >
+              <option value="classic">Classic Latin (Lorem Ipsum)</option>
+              <option value="hipster">Hipster (Artisanal / Craft)</option>
+              <option value="tech">Corporate / Tech Jargon</option>
+            </select>
+            <ChevronDown className="w-3.5 h-3.5 text-gray-400 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+          </div>
         </div>
 
         {/* Checkbox Options */}

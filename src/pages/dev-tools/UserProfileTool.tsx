@@ -21,6 +21,7 @@ import {
   Users,
   IdCard,
   AtSign,
+  ChevronDown,
 } from 'lucide-react';
 import {
   generateUserProfilesHelper,
@@ -409,31 +410,36 @@ const UserProfileTool: React.FC<UserProfileToolProps> = ({
               <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
                 Preset Domain:
               </label>
-              <select
-                value={domain}
-                onChange={(e) => setDomain(e.target.value)}
-                className="w-full text-xs font-medium bg-white border border-gray-300 rounded-lg p-2 focus:ring-blue-500"
-              >
-                <optgroup label="Popular Consumer">
-                  <option value="gmail.com">@gmail.com</option>
-                  <option value="yahoo.com">@yahoo.com</option>
-                  <option value="outlook.com">@outlook.com</option>
-                  <option value="icloud.com">@icloud.com</option>
-                </optgroup>
-                <optgroup label="Disposable / Temp Mail">
-                  <option value="temp-mail.org">@temp-mail.org</option>
-                  <option value="mailinator.com">@mailinator.com</option>
-                  <option value="guerrillamail.com">@guerrillamail.com</option>
-                  <option value="10minutemail.com">@10minutemail.com</option>
-                  <option value="yopmail.com">@yopmail.com</option>
-                  <option value="trashmail.com">@trashmail.com</option>
-                  <option value="dispostable.com">@dispostable.com</option>
-                </optgroup>
-                <optgroup label="Corporate / Dev Testing">
-                  <option value="qa-testing.io">@qa-testing.io</option>
-                  <option value="company.com">@company.com</option>
-                </optgroup>
-              </select>
+              <div className="relative">
+                <select
+                  value={domain}
+                  onChange={(e) => setDomain(e.target.value)}
+                  className="w-full text-xs font-medium bg-white border border-gray-300 rounded-lg p-2 pr-8 appearance-none focus:ring-blue-500"
+                >
+                  <optgroup label="Popular Consumer">
+                    <option value="gmail.com">@gmail.com</option>
+                    <option value="yahoo.com">@yahoo.com</option>
+                    <option value="outlook.com">@outlook.com</option>
+                    <option value="icloud.com">@icloud.com</option>
+                  </optgroup>
+                  <optgroup label="Disposable / Temp Mail">
+                    <option value="temp-mail.org">@temp-mail.org</option>
+                    <option value="mailinator.com">@mailinator.com</option>
+                    <option value="guerrillamail.com">
+                      @guerrillamail.com
+                    </option>
+                    <option value="10minutemail.com">@10minutemail.com</option>
+                    <option value="yopmail.com">@yopmail.com</option>
+                    <option value="trashmail.com">@trashmail.com</option>
+                    <option value="dispostable.com">@dispostable.com</option>
+                  </optgroup>
+                  <optgroup label="Corporate / Dev Testing">
+                    <option value="qa-testing.io">@qa-testing.io</option>
+                    <option value="company.com">@company.com</option>
+                  </optgroup>
+                </select>
+                <ChevronDown className="w-3.5 h-3.5 text-gray-400 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+              </div>
             </div>
 
             <div>
