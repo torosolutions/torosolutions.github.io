@@ -8,9 +8,9 @@ interface MainLayoutProps {
 
 const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   return (
-    <div className="min-h-screen bg-white font-sans text-gray-900 antialiased">
+    <div className="min-h-screen flex flex-col bg-slate-50 font-sans text-gray-900 antialiased">
       <Navbar />
-      <main>{children}</main>
+      <main className="flex-grow pt-16">{children}</main>
       <Footer />
     </div>
   );
