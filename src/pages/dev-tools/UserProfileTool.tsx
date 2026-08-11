@@ -355,9 +355,6 @@ const UserProfileTool: React.FC<UserProfileToolProps> = ({
                 onChange={(e) => setLastNameSuffix(e.target.value)}
                 className="w-full text-xs font-mono bg-white border border-gray-300 rounded-lg p-2 focus:ring-blue-500"
               />
-              <p className="text-[10px] text-gray-500 mt-1">
-                Letters &amp; digits only — no dots or symbols.
-              </p>
             </div>
           </div>
         </div>

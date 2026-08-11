@@ -49,7 +49,7 @@ function sanitizeLocalPart(value: string): string {
 }
 
 /** Username must contain only letters and digits — no dots or symbols. */
-function sanitizeAlphanumeric(value: string): string {
+export function sanitizeAlphanumeric(value: string): string {
   return value.replace(/[^a-zA-Z0-9]/g, '');
 }
 
@@ -107,10 +107,10 @@ export function generateUserProfilesHelper({
   const cleanSuffix = sanitizeLocalPart(emailSuffix.trim());
   const cleanUsernamePrefix = sanitizeAlphanumeric(usernamePrefix.trim());
   const cleanUsernameSuffix = sanitizeAlphanumeric(usernameSuffix.trim());
-  const cleanFirstNamePrefix = sanitizeAlphanumeric(firstNamePrefix.trim());
-  const cleanFirstNameSuffix = sanitizeAlphanumeric(firstNameSuffix.trim());
-  const cleanLastNamePrefix = sanitizeAlphanumeric(lastNamePrefix.trim());
-  const cleanLastNameSuffix = sanitizeAlphanumeric(lastNameSuffix.trim());
+  const cleanFirstNamePrefix = firstNamePrefix.trim();
+  const cleanFirstNameSuffix = firstNameSuffix.trim();
+  const cleanLastNamePrefix = lastNamePrefix.trim();
+  const cleanLastNameSuffix = lastNameSuffix.trim();
   const safeFactorLength = Math.max(0, Math.min(factorLength, 20));
   const safePhoneLength = Math.max(4, Math.min(phoneLength, 15));
   const profiles: UserProfile[] = [];
