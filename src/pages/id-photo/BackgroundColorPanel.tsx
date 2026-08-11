@@ -19,11 +19,16 @@ const BackgroundColorPanel: React.FC<BackgroundColorPanelProps> = ({
     <div className="bg-white rounded-2xl border border-gray-200 p-5 shadow-xs space-y-3">
       <h3 className="font-bold text-gray-900 text-xs sm:text-sm flex items-center gap-2">
         <ImageIcon className="w-4 h-4 text-indigo-600" />
-        Background Color Fill
+        Frame Padding Color
       </h3>
+      <p className="text-[11px] text-gray-400 -mt-2">
+        Fills empty margins left when zoomed out below 100% — it doesn't replace
+        the photo's actual background. For a compliant ID photo, shoot against a
+        plain backdrop.
+      </p>
 
       <div className="flex items-center justify-between text-xs text-gray-600">
-        <span>Enable background color fill:</span>
+        <span>Enable padding color fill:</span>
         <label className="relative inline-flex items-center cursor-pointer">
           <input
             type="checkbox"
@@ -49,10 +54,7 @@ const BackgroundColorPanel: React.FC<BackgroundColorPanelProps> = ({
             >
               <span
                 className="w-4 h-4 rounded-full border border-gray-300 flex-shrink-0"
-                style={{
-                  backgroundColor:
-                    c.color === 'transparent' ? '#FFFFFF' : c.color,
-                }}
+                style={{ backgroundColor: c.color }}
               />
               <span className="truncate">{c.name}</span>
             </button>
