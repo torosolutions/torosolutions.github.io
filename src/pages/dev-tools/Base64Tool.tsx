@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { Binary, Upload, Copy, ExternalLink, Wand2 } from 'lucide-react';
+import { Binary, Upload, Copy, ExternalLink, Wand2, X } from 'lucide-react';
 import { usePersistentState } from '../../hooks/usePersistentState';
 
 const TEMPLATE_TOKEN = '${output}';
@@ -18,9 +18,13 @@ interface Base64ToolProps {
 }
 
 const Base64Tool: React.FC<Base64ToolProps> = ({ copyToClipboard }) => {
-  const [base64Input, setBase64Input] = usePersistentState<string>(
-    'base64Input',
+  const [base64EncodeInput, setBase64EncodeInput] = usePersistentState<string>(
+    'base64EncodeInput',
     'Hello Toro Solutions!',
+  );
+  const [base64DecodeInput, setBase64DecodeInput] = usePersistentState<string>(
+    'base64DecodeInput',
+    '',
   );
   const [base64Mode, setBase64Mode] = usePersistentState<'encode' | 'decode'>(
     'base64Mode',
@@ -39,19 +43,19 @@ const Base64Tool: React.FC<Base64ToolProps> = ({ copyToClipboard }) => {
   const base64Output = useMemo(() => {
     try {
       if (base64Mode === 'encode') {
-        const bytes = new TextEncoder().encode(base64Input);
+        const bytes = new TextEncoder().encode(base64EncodeInput);
         let binString = '';
         bytes.forEach((b) => (binString += String.fromCharCode(b)));
         return btoa(binString);
       } else {
-        const binString = atob(base64Input.trim());
+        const binString = atob(base64DecodeInput.trim());
         const bytes = Uint8Array.from(binString, (m) => m.charCodeAt(0));
         return new TextDecoder().decode(bytes);
       }
     } catch {
       return '[Error: Invalid string for Base64 transformation]';
     }
-  }, [base64Input, base64Mode]);
+  }, [base64EncodeInput, base64DecodeInput, base64Mode]);
 
   const finalOutput = useMemo(() => {
     const template = outputTemplate.trim();
@@ -122,12 +126,36 @@ const Base64Tool: React.FC<Base64ToolProps> = ({ copyToClipboard }) => {
           <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
             Input String ({base64Mode.toUpperCase()}):
           </label>
-          <textarea
-            rows={6}
-            value={base64Input}
-            onChange={(e) => setBase64Input(e.target.value)}
-            className="w-full font-mono text-xs p-3 bg-slate-50 border border-gray-300 rounded-xl focus:ring-blue-500"
-          />
+          <div className="relative">
+            <textarea
+              rows={6}
+              value={
+                base64Mode === 'encode' ? base64EncodeInput : base64DecodeInput
+              }
+              onChange={(e) =>
+                base64Mode === 'encode'
+                  ? setBase64EncodeInput(e.target.value)
+                  : setBase64DecodeInput(e.target.value)
+              }
+              className="w-full font-mono text-xs p-3 pr-8 bg-slate-50 border border-gray-300 rounded-xl focus:ring-blue-500"
+            />
+            {(base64Mode === 'encode'
+              ? base64EncodeInput
+              : base64DecodeInput) && (
+              <button
+                type="button"
+                onClick={() =>
+                  base64Mode === 'encode'
+                    ? setBase64EncodeInput('')
+                    : setBase64DecodeInput('')
+                }
+                aria-label="Clear input"
+                className="absolute top-2 right-2 p-1 rounded-full text-gray-400 hover:text-gray-700 hover:bg-gray-200"
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
+            )}
+          </div>
         </div>
 
         <div>
@@ -154,10 +182,20 @@ const Base64Tool: React.FC<Base64ToolProps> = ({ copyToClipboard }) => {
       {/* Output Template */}
       <div className="border-t border-gray-100 pt-6 space-y-3">
         <div>
-          <label className="text-xs font-bold text-gray-700 uppercase mb-1 flex items-center gap-1.5">
-            <Wand2 className="w-3.5 h-3.5 text-blue-600" /> Output Template
-            (optional):
-          </label>
+          <div className="flex justify-between items-center mb-1">
+            <label className="text-xs font-bold text-gray-700 uppercase flex items-center gap-1.5">
+              <Wand2 className="w-3.5 h-3.5 text-blue-600" /> Output Template
+              (optional):
+            </label>
+            {outputTemplate && (
+              <button
+                onClick={() => setOutputTemplate('')}
+                className="text-xs text-gray-500 hover:text-gray-700 font-semibold"
+              >
+                Clear
+              </button>
+            )}
+          </div>
           <input
             type="text"
             value={outputTemplate}
