@@ -21,7 +21,6 @@ import {
   Users,
   IdCard,
   AtSign,
-  ChevronDown,
 } from 'lucide-react';
 import {
   generateUserProfilesHelper,
@@ -34,6 +33,8 @@ import {
   type UserProfile,
 } from '../../utils/userProfileGenerator';
 import { usePersistentState } from '../../hooks/usePersistentState';
+import Select from '../../components/atoms/Select';
+import TextField from '../../components/atoms/TextField';
 
 interface UserProfileToolProps {
   copyToClipboard: (text: string, label?: string) => void;
@@ -310,12 +311,11 @@ const UserProfileTool: React.FC<UserProfileToolProps> = ({
               <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
                 First Name Prefix (optional):
               </label>
-              <input
-                type="text"
+              <TextField
                 placeholder="e.g. Test"
                 value={firstNamePrefix}
                 onChange={(e) => setFirstNamePrefix(e.target.value)}
-                className="w-full text-xs font-mono bg-white border border-gray-300 rounded-lg p-2 focus:ring-blue-500"
+                className="w-full text-xs font-mono p-2"
               />
             </div>
 
@@ -323,12 +323,11 @@ const UserProfileTool: React.FC<UserProfileToolProps> = ({
               <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
                 First Name Suffix (optional):
               </label>
-              <input
-                type="text"
+              <TextField
                 placeholder="e.g. QA"
                 value={firstNameSuffix}
                 onChange={(e) => setFirstNameSuffix(e.target.value)}
-                className="w-full text-xs font-mono bg-white border border-gray-300 rounded-lg p-2 focus:ring-blue-500"
+                className="w-full text-xs font-mono p-2"
               />
             </div>
 
@@ -336,12 +335,11 @@ const UserProfileTool: React.FC<UserProfileToolProps> = ({
               <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
                 Last Name Prefix (optional):
               </label>
-              <input
-                type="text"
+              <TextField
                 placeholder="e.g. User"
                 value={lastNamePrefix}
                 onChange={(e) => setLastNamePrefix(e.target.value)}
-                className="w-full text-xs font-mono bg-white border border-gray-300 rounded-lg p-2 focus:ring-blue-500"
+                className="w-full text-xs font-mono p-2"
               />
             </div>
 
@@ -349,12 +347,11 @@ const UserProfileTool: React.FC<UserProfileToolProps> = ({
               <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
                 Last Name Suffix (optional):
               </label>
-              <input
-                type="text"
+              <TextField
                 placeholder="e.g. QA"
                 value={lastNameSuffix}
                 onChange={(e) => setLastNameSuffix(e.target.value)}
-                className="w-full text-xs font-mono bg-white border border-gray-300 rounded-lg p-2 focus:ring-blue-500"
+                className="w-full text-xs font-mono p-2"
               />
               <p className="text-[10px] text-gray-500 mt-1">
                 Letters &amp; digits only — no dots or symbols.
@@ -373,12 +370,11 @@ const UserProfileTool: React.FC<UserProfileToolProps> = ({
               <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
                 Username Prefix (optional):
               </label>
-              <input
-                type="text"
+              <TextField
                 placeholder="e.g. user"
                 value={usernamePrefix}
                 onChange={(e) => setUsernamePrefix(e.target.value)}
-                className="w-full text-xs font-mono bg-white border border-gray-300 rounded-lg p-2 focus:ring-blue-500"
+                className="w-full text-xs font-mono p-2"
               />
             </div>
 
@@ -386,12 +382,11 @@ const UserProfileTool: React.FC<UserProfileToolProps> = ({
               <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
                 Username Suffix (optional):
               </label>
-              <input
-                type="text"
+              <TextField
                 placeholder="e.g. qa"
                 value={usernameSuffix}
                 onChange={(e) => setUsernameSuffix(e.target.value)}
-                className="w-full text-xs font-mono bg-white border border-gray-300 rounded-lg p-2 focus:ring-blue-500"
+                className="w-full text-xs font-mono p-2"
               />
               <p className="text-[10px] text-gray-500 mt-1">
                 Letters &amp; digits only — no dots or symbols.
@@ -410,48 +405,42 @@ const UserProfileTool: React.FC<UserProfileToolProps> = ({
               <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
                 Preset Domain:
               </label>
-              <div className="relative">
-                <select
-                  value={domain}
-                  onChange={(e) => setDomain(e.target.value)}
-                  className="w-full text-xs font-medium bg-white border border-gray-300 rounded-lg p-2 pr-8 appearance-none focus:ring-blue-500"
-                >
-                  <optgroup label="Popular Consumer">
-                    <option value="gmail.com">@gmail.com</option>
-                    <option value="yahoo.com">@yahoo.com</option>
-                    <option value="outlook.com">@outlook.com</option>
-                    <option value="icloud.com">@icloud.com</option>
-                  </optgroup>
-                  <optgroup label="Disposable / Temp Mail">
-                    <option value="temp-mail.org">@temp-mail.org</option>
-                    <option value="mailinator.com">@mailinator.com</option>
-                    <option value="guerrillamail.com">
-                      @guerrillamail.com
-                    </option>
-                    <option value="10minutemail.com">@10minutemail.com</option>
-                    <option value="yopmail.com">@yopmail.com</option>
-                    <option value="trashmail.com">@trashmail.com</option>
-                    <option value="dispostable.com">@dispostable.com</option>
-                  </optgroup>
-                  <optgroup label="Corporate / Dev Testing">
-                    <option value="qa-testing.io">@qa-testing.io</option>
-                    <option value="company.com">@company.com</option>
-                  </optgroup>
-                </select>
-                <ChevronDown className="w-3.5 h-3.5 text-gray-400 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
-              </div>
+              <Select
+                value={domain}
+                onChange={(e) => setDomain(e.target.value)}
+                className="w-full text-xs font-medium p-2"
+              >
+                <optgroup label="Popular Consumer">
+                  <option value="gmail.com">@gmail.com</option>
+                  <option value="yahoo.com">@yahoo.com</option>
+                  <option value="outlook.com">@outlook.com</option>
+                  <option value="icloud.com">@icloud.com</option>
+                </optgroup>
+                <optgroup label="Disposable / Temp Mail">
+                  <option value="temp-mail.org">@temp-mail.org</option>
+                  <option value="mailinator.com">@mailinator.com</option>
+                  <option value="guerrillamail.com">@guerrillamail.com</option>
+                  <option value="10minutemail.com">@10minutemail.com</option>
+                  <option value="yopmail.com">@yopmail.com</option>
+                  <option value="trashmail.com">@trashmail.com</option>
+                  <option value="dispostable.com">@dispostable.com</option>
+                </optgroup>
+                <optgroup label="Corporate / Dev Testing">
+                  <option value="qa-testing.io">@qa-testing.io</option>
+                  <option value="company.com">@company.com</option>
+                </optgroup>
+              </Select>
             </div>
 
             <div>
               <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
                 Or Custom Domain:
               </label>
-              <input
-                type="text"
+              <TextField
                 placeholder="e.g. myqa-env.dev"
                 value={customDomain}
                 onChange={(e) => setCustomDomain(e.target.value)}
-                className="w-full text-xs font-medium bg-white border border-gray-300 rounded-lg p-2 focus:ring-blue-500"
+                className="w-full text-xs font-medium p-2"
               />
             </div>
 
@@ -461,12 +450,11 @@ const UserProfileTool: React.FC<UserProfileToolProps> = ({
               <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
                 Email Prefix (optional):
               </label>
-              <input
-                type="text"
+              <TextField
                 placeholder="e.g. qa_"
                 value={emailPrefix}
                 onChange={(e) => setEmailPrefix(e.target.value)}
-                className="w-full text-xs font-mono bg-white border border-gray-300 rounded-lg p-2 focus:ring-blue-500"
+                className="w-full text-xs font-mono p-2"
               />
             </div>
 
@@ -474,12 +462,11 @@ const UserProfileTool: React.FC<UserProfileToolProps> = ({
               <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
                 Email Suffix (optional):
               </label>
-              <input
-                type="text"
+              <TextField
                 placeholder="e.g. +staging"
                 value={emailSuffix}
                 onChange={(e) => setEmailSuffix(e.target.value)}
-                className="w-full text-xs font-mono bg-white border border-gray-300 rounded-lg p-2 focus:ring-blue-500"
+                className="w-full text-xs font-mono p-2"
               />
               <p className="text-[10px] text-gray-500 mt-1">
                 Tip: use{' '}

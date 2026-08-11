@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { AtSign, RefreshCw, Copy, ChevronDown } from 'lucide-react';
+import { AtSign, RefreshCw, Copy } from 'lucide-react';
 import { generateEmailsHelper } from '../../utils/crypto';
 import { getStoredValue } from '../../utils/storage';
 import { usePersistentState } from '../../hooks/usePersistentState';
+import Select from '../../components/atoms/Select';
+import TextField from '../../components/atoms/TextField';
 
 interface RandomEmailToolProps {
   copyToClipboard: (text: string, label?: string) => void;
@@ -83,48 +85,44 @@ const RandomEmailTool: React.FC<RandomEmailToolProps> = ({
           <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
             Preset Domain:
           </label>
-          <div className="relative">
-            <select
-              value={emailDomain}
-              onChange={(e) => {
-                const dom = e.target.value;
-                setEmailDomain(dom);
-                updateEmails(dom);
-              }}
-              className="w-full text-xs font-medium bg-white border border-gray-300 rounded-lg p-2.5 pr-8 appearance-none focus:ring-blue-500"
-            >
-              <optgroup label="Popular Consumer">
-                <option value="gmail.com">@gmail.com</option>
-                <option value="yahoo.com">@yahoo.com</option>
-                <option value="outlook.com">@outlook.com</option>
-                <option value="icloud.com">@icloud.com</option>
-              </optgroup>
-              <optgroup label="Disposable / Temp Mail">
-                <option value="temp-mail.org">@temp-mail.org</option>
-                <option value="mailinator.com">@mailinator.com</option>
-                <option value="guerrillamail.com">@guerrillamail.com</option>
-                <option value="10minutemail.com">@10minutemail.com</option>
-                <option value="yopmail.com">@yopmail.com</option>
-                <option value="trashmail.com">@trashmail.com</option>
-                <option value="dispostable.com">@dispostable.com</option>
-              </optgroup>
-              <optgroup label="Corporate / Dev Testing">
-                <option value="company.io">@company.io</option>
-                <option value="toro-dev.net">@toro-dev.net</option>
-                <option value="example.org">@example.org</option>
-                <option value="testmail.dev">@testmail.dev</option>
-              </optgroup>
-            </select>
-            <ChevronDown className="w-3.5 h-3.5 text-gray-400 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
-          </div>
+          <Select
+            value={emailDomain}
+            onChange={(e) => {
+              const dom = e.target.value;
+              setEmailDomain(dom);
+              updateEmails(dom);
+            }}
+            className="w-full text-xs font-medium p-2.5"
+          >
+            <optgroup label="Popular Consumer">
+              <option value="gmail.com">@gmail.com</option>
+              <option value="yahoo.com">@yahoo.com</option>
+              <option value="outlook.com">@outlook.com</option>
+              <option value="icloud.com">@icloud.com</option>
+            </optgroup>
+            <optgroup label="Disposable / Temp Mail">
+              <option value="temp-mail.org">@temp-mail.org</option>
+              <option value="mailinator.com">@mailinator.com</option>
+              <option value="guerrillamail.com">@guerrillamail.com</option>
+              <option value="10minutemail.com">@10minutemail.com</option>
+              <option value="yopmail.com">@yopmail.com</option>
+              <option value="trashmail.com">@trashmail.com</option>
+              <option value="dispostable.com">@dispostable.com</option>
+            </optgroup>
+            <optgroup label="Corporate / Dev Testing">
+              <option value="company.io">@company.io</option>
+              <option value="toro-dev.net">@toro-dev.net</option>
+              <option value="example.org">@example.org</option>
+              <option value="testmail.dev">@testmail.dev</option>
+            </optgroup>
+          </Select>
         </div>
 
         <div>
           <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
             Or Custom Domain:
           </label>
-          <input
-            type="text"
+          <TextField
             placeholder="e.g. mycompany.com"
             value={customDomain}
             onChange={(e) => {
@@ -132,7 +130,7 @@ const RandomEmailTool: React.FC<RandomEmailToolProps> = ({
               setCustomDomain(cdom);
               updateEmails(emailDomain, cdom);
             }}
-            className="w-full text-xs font-medium bg-white border border-gray-300 rounded-lg p-2.5 focus:ring-blue-500"
+            className="w-full text-xs font-medium p-2.5"
           />
         </div>
 
@@ -140,33 +138,30 @@ const RandomEmailTool: React.FC<RandomEmailToolProps> = ({
           <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
             Prefix Pattern:
           </label>
-          <div className="relative">
-            <select
-              value={emailPrefixType}
-              onChange={(e) => {
-                const type = e.target.value as
-                  | 'name'
-                  | 'word'
-                  | 'alphanumeric'
-                  | 'custom';
-                setEmailPrefixType(type);
-                updateEmails(
-                  emailDomain,
-                  customDomain,
-                  emailCount,
-                  type,
-                  customPrefix,
-                );
-              }}
-              className="w-full text-xs font-medium bg-white border border-gray-300 rounded-lg p-2.5 pr-8 appearance-none focus:ring-blue-500"
-            >
-              <option value="name">First Last (e.g. john.doe42)</option>
-              <option value="word">Tech Terms (e.g. coder.dev88)</option>
-              <option value="alphanumeric">Random Hash (e.g. xk92ma8z)</option>
-              <option value="custom">Custom Prefix / Pattern</option>
-            </select>
-            <ChevronDown className="w-3.5 h-3.5 text-gray-400 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
-          </div>
+          <Select
+            value={emailPrefixType}
+            onChange={(e) => {
+              const type = e.target.value as
+                | 'name'
+                | 'word'
+                | 'alphanumeric'
+                | 'custom';
+              setEmailPrefixType(type);
+              updateEmails(
+                emailDomain,
+                customDomain,
+                emailCount,
+                type,
+                customPrefix,
+              );
+            }}
+            className="w-full text-xs font-medium p-2.5"
+          >
+            <option value="name">First Last (e.g. john.doe42)</option>
+            <option value="word">Tech Terms (e.g. coder.dev88)</option>
+            <option value="alphanumeric">Random Hash (e.g. xk92ma8z)</option>
+            <option value="custom">Custom Prefix / Pattern</option>
+          </Select>
         </div>
 
         {emailPrefixType === 'custom' && (
@@ -174,8 +169,7 @@ const RandomEmailTool: React.FC<RandomEmailToolProps> = ({
             <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
               Custom Prefix Input:
             </label>
-            <input
-              type="text"
+            <TextField
               placeholder="e.g. test.user, qa_{n}, or dev+{hash}"
               value={customPrefix}
               onChange={(e) => {
@@ -189,7 +183,7 @@ const RandomEmailTool: React.FC<RandomEmailToolProps> = ({
                   pref,
                 );
               }}
-              className="w-full text-xs font-medium bg-white border border-gray-300 rounded-lg p-2.5 focus:ring-blue-500"
+              className="w-full text-xs font-medium p-2.5"
             />
             <p className="text-[10px] text-gray-500 mt-1">
               Tags:{' '}
