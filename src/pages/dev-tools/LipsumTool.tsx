@@ -7,6 +7,7 @@ import {
   type LipsumFlavor,
 } from '../../utils/loremIpsum';
 import { usePersistentState } from '../../hooks/usePersistentState';
+import Select from '../../components/atoms/Select';
 
 interface LipsumToolProps {
   copyToClipboard: (text: string, label?: string) => void;
@@ -96,30 +97,30 @@ const LipsumTool: React.FC<LipsumToolProps> = ({ copyToClipboard }) => {
           <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
             Unit Type:
           </label>
-          <select
+          <Select
             value={unit}
             onChange={(e) => setUnit(e.target.value as LipsumUnit)}
-            className="w-full text-xs font-medium bg-white border border-gray-300 rounded-lg p-2.5 focus:ring-blue-500"
+            className="w-full text-xs font-medium p-2.5"
           >
             <option value="paragraphs">Paragraphs</option>
             <option value="sentences">Sentences</option>
             <option value="words">Words</option>
-          </select>
+          </Select>
         </div>
 
         <div>
           <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
             Flavor / Dictionary:
           </label>
-          <select
+          <Select
             value={flavor}
             onChange={(e) => setFlavor(e.target.value as LipsumFlavor)}
-            className="w-full text-xs font-medium bg-white border border-gray-300 rounded-lg p-2.5 focus:ring-blue-500"
+            className="w-full text-xs font-medium p-2.5"
           >
             <option value="classic">Classic Latin (Lorem Ipsum)</option>
             <option value="hipster">Hipster (Artisanal / Craft)</option>
             <option value="tech">Corporate / Tech Jargon</option>
-          </select>
+          </Select>
         </div>
 
         {/* Checkbox Options */}

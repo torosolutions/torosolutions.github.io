@@ -3,6 +3,8 @@ import { AtSign, RefreshCw, Copy } from 'lucide-react';
 import { generateEmailsHelper } from '../../utils/crypto';
 import { getStoredValue } from '../../utils/storage';
 import { usePersistentState } from '../../hooks/usePersistentState';
+import Select from '../../components/atoms/Select';
+import TextField from '../../components/atoms/TextField';
 
 interface RandomEmailToolProps {
   copyToClipboard: (text: string, label?: string) => void;
@@ -83,14 +85,14 @@ const RandomEmailTool: React.FC<RandomEmailToolProps> = ({
           <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
             Preset Domain:
           </label>
-          <select
+          <Select
             value={emailDomain}
             onChange={(e) => {
               const dom = e.target.value;
               setEmailDomain(dom);
               updateEmails(dom);
             }}
-            className="w-full text-xs font-medium bg-white border border-gray-300 rounded-lg p-2.5 focus:ring-blue-500"
+            className="w-full text-xs font-medium p-2.5"
           >
             <optgroup label="Popular Consumer">
               <option value="gmail.com">@gmail.com</option>
@@ -113,15 +115,14 @@ const RandomEmailTool: React.FC<RandomEmailToolProps> = ({
               <option value="example.org">@example.org</option>
               <option value="testmail.dev">@testmail.dev</option>
             </optgroup>
-          </select>
+          </Select>
         </div>
 
         <div>
           <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
             Or Custom Domain:
           </label>
-          <input
-            type="text"
+          <TextField
             placeholder="e.g. mycompany.com"
             value={customDomain}
             onChange={(e) => {
@@ -129,7 +130,7 @@ const RandomEmailTool: React.FC<RandomEmailToolProps> = ({
               setCustomDomain(cdom);
               updateEmails(emailDomain, cdom);
             }}
-            className="w-full text-xs font-medium bg-white border border-gray-300 rounded-lg p-2.5 focus:ring-blue-500"
+            className="w-full text-xs font-medium p-2.5"
           />
         </div>
 
@@ -137,7 +138,7 @@ const RandomEmailTool: React.FC<RandomEmailToolProps> = ({
           <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
             Prefix Pattern:
           </label>
-          <select
+          <Select
             value={emailPrefixType}
             onChange={(e) => {
               const type = e.target.value as
@@ -154,13 +155,13 @@ const RandomEmailTool: React.FC<RandomEmailToolProps> = ({
                 customPrefix,
               );
             }}
-            className="w-full text-xs font-medium bg-white border border-gray-300 rounded-lg p-2.5 focus:ring-blue-500"
+            className="w-full text-xs font-medium p-2.5"
           >
             <option value="name">First Last (e.g. john.doe42)</option>
             <option value="word">Tech Terms (e.g. coder.dev88)</option>
             <option value="alphanumeric">Random Hash (e.g. xk92ma8z)</option>
             <option value="custom">Custom Prefix / Pattern</option>
-          </select>
+          </Select>
         </div>
 
         {emailPrefixType === 'custom' && (
@@ -168,8 +169,7 @@ const RandomEmailTool: React.FC<RandomEmailToolProps> = ({
             <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
               Custom Prefix Input:
             </label>
-            <input
-              type="text"
+            <TextField
               placeholder="e.g. test.user, qa_{n}, or dev+{hash}"
               value={customPrefix}
               onChange={(e) => {
@@ -183,7 +183,7 @@ const RandomEmailTool: React.FC<RandomEmailToolProps> = ({
                   pref,
                 );
               }}
-              className="w-full text-xs font-medium bg-white border border-gray-300 rounded-lg p-2.5 focus:ring-blue-500"
+              className="w-full text-xs font-medium p-2.5"
             />
             <p className="text-[10px] text-gray-500 mt-1">
               Tags:{' '}
