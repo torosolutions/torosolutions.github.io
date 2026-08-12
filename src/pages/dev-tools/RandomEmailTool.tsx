@@ -242,11 +242,16 @@ const RandomEmailTool: React.FC<RandomEmailToolProps> = ({
           {generatedEmails.map((email, idx) => (
             <div
               key={idx}
-              className="flex items-center justify-between p-3 bg-slate-900 text-blue-300 font-mono text-xs sm:text-sm rounded-xl border border-slate-800"
+              onClick={() => copyToClipboard(email)}
+              className="flex items-center justify-between p-3 bg-slate-900 text-blue-300 font-mono text-xs sm:text-sm rounded-xl border border-slate-800 cursor-pointer hover:border-slate-600 transition-colors"
+              title="Click to copy"
             >
               <span className="truncate select-all">{email}</span>
               <button
-                onClick={() => copyToClipboard(email)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  copyToClipboard(email);
+                }}
                 className="p-1.5 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-white"
                 title="Copy email"
               >

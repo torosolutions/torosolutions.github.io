@@ -174,7 +174,11 @@ const Base64Tool: React.FC<Base64ToolProps> = ({ copyToClipboard }) => {
             rows={6}
             readOnly
             value={base64Output}
-            className="w-full font-mono text-xs p-3 bg-slate-900 text-emerald-400 border border-slate-800 rounded-xl"
+            onClick={(e) => {
+              e.currentTarget.select();
+              copyToClipboard(base64Output);
+            }}
+            className="w-full font-mono text-xs p-3 bg-slate-900 text-emerald-400 border border-slate-800 rounded-xl cursor-pointer select-all"
           />
         </div>
       </div>
@@ -228,19 +232,28 @@ const Base64Tool: React.FC<Base64ToolProps> = ({ copyToClipboard }) => {
                 <Copy className="w-3.5 h-3.5" /> Copy
               </button>
             </div>
-            <div className="w-full font-mono text-xs p-3 bg-slate-900 border border-slate-800 rounded-xl break-all">
+            <div
+              onClick={() =>
+                copyToClipboard(finalOutput, 'Final output copied!')
+              }
+              className="w-full font-mono text-xs p-3 bg-slate-900 border border-slate-800 rounded-xl break-all cursor-pointer hover:border-slate-600 transition-colors"
+              title="Click to copy"
+            >
               {finalOutputIsUrl ? (
                 <a
                   href={finalOutput}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
                   className="text-blue-400 hover:text-blue-300 underline underline-offset-2 inline-flex items-center gap-1.5"
                 >
                   {finalOutput}{' '}
                   <ExternalLink className="w-3 h-3 flex-shrink-0" />
                 </a>
               ) : (
-                <span className="text-emerald-400">{finalOutput}</span>
+                <span className="text-emerald-400 select-all">
+                  {finalOutput}
+                </span>
               )}
             </div>
           </div>
@@ -275,7 +288,13 @@ const Base64Tool: React.FC<Base64ToolProps> = ({ copyToClipboard }) => {
                 <Copy className="w-3.5 h-3.5" /> Copy Base64 Data URI
               </button>
             </div>
-            <div className="font-mono text-xs text-emerald-400 truncate">
+            <div
+              onClick={() =>
+                copyToClipboard(fileBase64.dataUrl, 'Base64 Data URI copied!')
+              }
+              className="font-mono text-xs text-emerald-400 truncate select-all cursor-pointer hover:text-emerald-300"
+              title="Click to copy"
+            >
               {fileBase64.dataUrl}
             </div>
           </div>

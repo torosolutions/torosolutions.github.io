@@ -155,11 +155,16 @@ const UuidHashTool: React.FC<UuidHashToolProps> = ({ copyToClipboard }) => {
           {generatedUuids.map((u, i) => (
             <div
               key={i}
-              className="flex justify-between items-center p-2.5 bg-slate-900 text-purple-300 font-mono text-xs rounded-xl"
+              onClick={() => copyToClipboard(u)}
+              className="flex justify-between items-center p-2.5 bg-slate-900 text-purple-300 font-mono text-xs rounded-xl cursor-pointer hover:bg-slate-800 transition-colors"
+              title="Click to copy"
             >
-              <span>{u}</span>
+              <span className="select-all">{u}</span>
               <button
-                onClick={() => copyToClipboard(u)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  copyToClipboard(u);
+                }}
                 className="p-1 text-slate-400 hover:text-white"
               >
                 <Copy className="w-3.5 h-3.5" />
@@ -196,14 +201,17 @@ const UuidHashTool: React.FC<UuidHashToolProps> = ({ copyToClipboard }) => {
           ].map((item, idx) => (
             <div
               key={idx}
-              className="bg-slate-900 p-3 rounded-xl text-white text-xs"
+              onClick={() => copyToClipboard(item.val, `${item.label} copied!`)}
+              className="bg-slate-900 p-3 rounded-xl text-white text-xs cursor-pointer hover:bg-slate-800 transition-colors"
+              title="Click to copy"
             >
               <div className="flex justify-between text-slate-400 mb-1 font-semibold">
                 <span>{item.label}:</span>
                 <button
-                  onClick={() =>
-                    copyToClipboard(item.val, `${item.label} copied!`)
-                  }
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    copyToClipboard(item.val, `${item.label} copied!`);
+                  }}
                   className="text-emerald-400 hover:text-emerald-300 flex items-center gap-1 font-bold"
                 >
                   <Copy className="w-3 h-3" /> Copy

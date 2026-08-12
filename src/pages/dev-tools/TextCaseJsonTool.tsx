@@ -74,7 +74,9 @@ const TextCaseJsonTool: React.FC<TextCaseJsonToolProps> = ({
           ].map((c, i) => (
             <div
               key={i}
-              className="p-3 bg-slate-50 rounded-xl border border-gray-200 flex justify-between items-center text-xs"
+              onClick={() => copyToClipboard(c.val)}
+              className="p-3 bg-slate-50 rounded-xl border border-gray-200 flex justify-between items-center text-xs cursor-pointer hover:bg-slate-100 transition-colors"
+              title="Click to copy"
             >
               <div>
                 <span className="font-bold text-gray-500 block mb-0.5">
@@ -85,7 +87,10 @@ const TextCaseJsonTool: React.FC<TextCaseJsonToolProps> = ({
                 </span>
               </div>
               <button
-                onClick={() => copyToClipboard(c.val)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  copyToClipboard(c.val);
+                }}
                 className="p-1.5 text-gray-400 hover:text-blue-600"
               >
                 <Copy className="w-4 h-4" />
@@ -153,7 +158,11 @@ const TextCaseJsonTool: React.FC<TextCaseJsonToolProps> = ({
                 rows={8}
                 readOnly
                 value={jsonOutput}
-                className="w-full font-mono text-xs p-3 bg-slate-900 text-emerald-400 border border-slate-800 rounded-xl"
+                onClick={(e) => {
+                  e.currentTarget.select();
+                  copyToClipboard(jsonOutput, 'JSON copied!');
+                }}
+                className="w-full font-mono text-xs p-3 bg-slate-900 text-emerald-400 border border-slate-800 rounded-xl cursor-pointer select-all"
               />
             )}
           </div>
