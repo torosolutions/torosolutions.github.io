@@ -71,7 +71,11 @@ const UrlHtmlEncoderTool: React.FC<UrlHtmlEncoderToolProps> = ({
                 Copy
               </button>
             </div>
-            <div className="p-3 bg-slate-900 text-blue-300 font-mono text-xs rounded-xl break-all">
+            <div
+              onClick={() => copyToClipboard(urlEncoded)}
+              className="p-3 bg-slate-900 text-blue-300 font-mono text-xs rounded-xl break-all select-all cursor-pointer hover:bg-slate-800 transition-colors"
+              title="Click to copy"
+            >
               {urlEncoded}
             </div>
           </div>
@@ -85,7 +89,11 @@ const UrlHtmlEncoderTool: React.FC<UrlHtmlEncoderToolProps> = ({
                 Copy
               </button>
             </div>
-            <div className="p-3 bg-slate-900 text-emerald-400 font-mono text-xs rounded-xl break-all">
+            <div
+              onClick={() => copyToClipboard(urlDecoded)}
+              className="p-3 bg-slate-900 text-emerald-400 font-mono text-xs rounded-xl break-all select-all cursor-pointer hover:bg-slate-800 transition-colors"
+              title="Click to copy"
+            >
               {urlDecoded}
             </div>
           </div>
@@ -118,7 +126,11 @@ const UrlHtmlEncoderTool: React.FC<UrlHtmlEncoderToolProps> = ({
               Copy
             </button>
           </div>
-          <div className="p-3 bg-slate-900 text-amber-300 font-mono text-xs rounded-xl break-all">
+          <div
+            onClick={() => copyToClipboard(htmlEncoded)}
+            className="p-3 bg-slate-900 text-amber-300 font-mono text-xs rounded-xl break-all select-all cursor-pointer hover:bg-slate-800 transition-colors"
+            title="Click to copy"
+          >
             {htmlEncoded}
           </div>
         </div>

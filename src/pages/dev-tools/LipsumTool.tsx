@@ -179,7 +179,11 @@ const LipsumTool: React.FC<LipsumToolProps> = ({ copyToClipboard }) => {
           rows={10}
           readOnly
           value={generatedText}
-          className="w-full font-mono text-xs p-4 bg-slate-900 text-emerald-400 border border-slate-800 rounded-xl leading-relaxed focus:ring-blue-500 select-all"
+          onClick={(e) => {
+            e.currentTarget.select();
+            copyToClipboard(generatedText, 'Lorem Ipsum text copied!');
+          }}
+          className="w-full font-mono text-xs p-4 bg-slate-900 text-emerald-400 border border-slate-800 rounded-xl leading-relaxed focus:ring-blue-500 select-all cursor-pointer"
         />
       </div>
     </div>

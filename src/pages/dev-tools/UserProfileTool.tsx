@@ -552,20 +552,25 @@ const UserProfileTool: React.FC<UserProfileToolProps> = ({
         </div>
 
         {/* Random Factor — shown at the top regardless of field selection */}
-        <div className="flex items-center justify-between bg-indigo-50 px-2.5 py-1.5 rounded-lg border border-indigo-100 gap-2 mb-2">
+        <div
+          onClick={() => copyToClipboard(profiles[0].factor, 'Factor copied!')}
+          className="flex items-center justify-between bg-indigo-50 px-2.5 py-1.5 rounded-lg border border-indigo-100 gap-2 mb-2 cursor-pointer hover:bg-indigo-100 transition-colors"
+          title="Click to copy"
+        >
           <span className="text-indigo-700 font-semibold flex-shrink-0">
             Factor:
           </span>
           <div className="flex items-center gap-1 min-w-0">
-            <span className="font-mono text-indigo-900 truncate">
+            <span className="font-mono text-indigo-900 truncate select-all">
               {factorLength === 0
                 ? `${profiles[0].factor} (index, factor off)`
                 : profiles[0].factor}
             </span>
             <button
-              onClick={() =>
-                copyToClipboard(profiles[0].factor, 'Factor copied!')
-              }
+              onClick={(e) => {
+                e.stopPropagation();
+                copyToClipboard(profiles[0].factor, 'Factor copied!');
+              }}
               className="text-indigo-400 hover:text-indigo-700 p-0.5 flex-shrink-0"
             >
               <Copy className="w-3 h-3" />
@@ -592,19 +597,22 @@ const UserProfileTool: React.FC<UserProfileToolProps> = ({
               return (
                 <div
                   key={opt.key}
-                  className="flex items-center justify-between bg-slate-50 px-2.5 py-1.5 rounded-lg border border-gray-100 gap-2"
+                  onClick={() => copyToClipboard(value, `${opt.label} copied!`)}
+                  className="flex items-center justify-between bg-slate-50 px-2.5 py-1.5 rounded-lg border border-gray-100 gap-2 cursor-pointer hover:bg-slate-100 transition-colors"
+                  title="Click to copy"
                 >
                   <span className="text-gray-500 font-semibold flex-shrink-0">
                     {opt.label}:
                   </span>
                   <div className="flex items-center gap-1 min-w-0">
-                    <span className="font-mono text-gray-900 truncate">
+                    <span className="font-mono text-gray-900 truncate select-all">
                       {value}
                     </span>
                     <button
-                      onClick={() =>
-                        copyToClipboard(value, `${opt.label} copied!`)
-                      }
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        copyToClipboard(value, `${opt.label} copied!`);
+                      }}
                       className="text-gray-400 hover:text-blue-600 p-0.5 flex-shrink-0"
                     >
                       <Copy className="w-3 h-3" />
@@ -760,20 +768,27 @@ const UserProfileTool: React.FC<UserProfileToolProps> = ({
                 <div className="space-y-2 text-xs">
                   {/* Username */}
                   {isFieldOn('username') && (
-                    <div className="flex items-center justify-between bg-white p-2 rounded-xl border border-gray-200">
+                    <div
+                      onClick={() =>
+                        copyToClipboard(profile.username, 'Username copied!')
+                      }
+                      className="flex items-center justify-between bg-white p-2 rounded-xl border border-gray-200 cursor-pointer hover:bg-gray-50 transition-colors"
+                      title="Click to copy"
+                    >
                       <div className="flex items-center gap-2 truncate">
                         <User className="w-3.5 h-3.5 text-blue-500 flex-shrink-0" />
                         <span className="font-bold text-gray-500">
                           Username:
                         </span>
-                        <span className="font-mono text-gray-900 font-medium truncate">
+                        <span className="font-mono text-gray-900 font-medium truncate select-all">
                           {profile.username}
                         </span>
                       </div>
                       <button
-                        onClick={() =>
-                          copyToClipboard(profile.username, 'Username copied!')
-                        }
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          copyToClipboard(profile.username, 'Username copied!');
+                        }}
                         className="text-gray-400 hover:text-blue-600 p-1"
                         title="Copy Username"
                       >
@@ -784,18 +799,25 @@ const UserProfileTool: React.FC<UserProfileToolProps> = ({
 
                   {/* Email */}
                   {isFieldOn('email') && (
-                    <div className="flex items-center justify-between bg-white p-2 rounded-xl border border-gray-200">
+                    <div
+                      onClick={() =>
+                        copyToClipboard(profile.email, 'Email copied!')
+                      }
+                      className="flex items-center justify-between bg-white p-2 rounded-xl border border-gray-200 cursor-pointer hover:bg-gray-50 transition-colors"
+                      title="Click to copy"
+                    >
                       <div className="flex items-center gap-2 truncate">
                         <Mail className="w-3.5 h-3.5 text-indigo-500 flex-shrink-0" />
                         <span className="font-bold text-gray-500">Email:</span>
-                        <span className="font-mono text-indigo-600 font-semibold truncate">
+                        <span className="font-mono text-indigo-600 font-semibold truncate select-all">
                           {profile.email}
                         </span>
                       </div>
                       <button
-                        onClick={() =>
-                          copyToClipboard(profile.email, 'Email copied!')
-                        }
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          copyToClipboard(profile.email, 'Email copied!');
+                        }}
                         className="text-gray-400 hover:text-blue-600 p-1"
                         title="Copy Email"
                       >
@@ -806,20 +828,27 @@ const UserProfileTool: React.FC<UserProfileToolProps> = ({
 
                   {/* Password */}
                   {isFieldOn('password') && (
-                    <div className="flex items-center justify-between bg-white p-2 rounded-xl border border-gray-200">
+                    <div
+                      onClick={() =>
+                        copyToClipboard(profile.password, 'Password copied!')
+                      }
+                      className="flex items-center justify-between bg-white p-2 rounded-xl border border-gray-200 cursor-pointer hover:bg-gray-50 transition-colors"
+                      title="Click to copy"
+                    >
                       <div className="flex items-center gap-2 truncate">
                         <Key className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" />
                         <span className="font-bold text-gray-500">
                           Password:
                         </span>
-                        <span className="font-mono text-emerald-600 font-bold truncate">
+                        <span className="font-mono text-emerald-600 font-bold truncate select-all">
                           {profile.password}
                         </span>
                       </div>
                       <button
-                        onClick={() =>
-                          copyToClipboard(profile.password, 'Password copied!')
-                        }
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          copyToClipboard(profile.password, 'Password copied!');
+                        }}
                         className="text-gray-400 hover:text-blue-600 p-1"
                         title="Copy Password"
                       >
@@ -832,17 +861,24 @@ const UserProfileTool: React.FC<UserProfileToolProps> = ({
                   {(isFieldOn('phone') || isFieldOn('birthDate')) && (
                     <div className="grid grid-cols-2 gap-2">
                       {isFieldOn('phone') && (
-                        <div className="flex items-center justify-between bg-white p-2 rounded-xl border border-gray-200 truncate">
+                        <div
+                          onClick={() =>
+                            copyToClipboard(profile.phone, 'Phone copied!')
+                          }
+                          className="flex items-center justify-between bg-white p-2 rounded-xl border border-gray-200 truncate cursor-pointer hover:bg-gray-50 transition-colors"
+                          title="Click to copy"
+                        >
                           <div className="flex items-center gap-1.5 truncate">
                             <Phone className="w-3 h-3 text-amber-500 flex-shrink-0" />
-                            <span className="font-mono text-[11px] text-gray-800 truncate">
+                            <span className="font-mono text-[11px] text-gray-800 truncate select-all">
                               {profile.phone}
                             </span>
                           </div>
                           <button
-                            onClick={() =>
-                              copyToClipboard(profile.phone, 'Phone copied!')
-                            }
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              copyToClipboard(profile.phone, 'Phone copied!');
+                            }}
                             className="text-gray-400 hover:text-blue-600 p-1"
                           >
                             <Copy className="w-3 h-3" />
@@ -851,20 +887,30 @@ const UserProfileTool: React.FC<UserProfileToolProps> = ({
                       )}
 
                       {isFieldOn('birthDate') && (
-                        <div className="flex items-center justify-between bg-white p-2 rounded-xl border border-gray-200 truncate">
+                        <div
+                          onClick={() =>
+                            copyToClipboard(
+                              profile.birthDate,
+                              'Birthdate copied!',
+                            )
+                          }
+                          className="flex items-center justify-between bg-white p-2 rounded-xl border border-gray-200 truncate cursor-pointer hover:bg-gray-50 transition-colors"
+                          title="Click to copy"
+                        >
                           <div className="flex items-center gap-1.5 truncate">
                             <Calendar className="w-3 h-3 text-purple-500 flex-shrink-0" />
-                            <span className="font-mono text-[11px] text-gray-800 truncate">
+                            <span className="font-mono text-[11px] text-gray-800 truncate select-all">
                               {profile.birthDate}
                             </span>
                           </div>
                           <button
-                            onClick={() =>
+                            onClick={(e) => {
+                              e.stopPropagation();
                               copyToClipboard(
                                 profile.birthDate,
                                 'Birthdate copied!',
-                              )
-                            }
+                              );
+                            }}
                             className="text-gray-400 hover:text-blue-600 p-1"
                           >
                             <Copy className="w-3 h-3" />
@@ -913,7 +959,11 @@ const UserProfileTool: React.FC<UserProfileToolProps> = ({
             rows={14}
             readOnly
             value={jsonContent}
-            className="w-full font-mono text-xs p-4 bg-slate-900 text-emerald-400 border border-slate-800 rounded-xl leading-relaxed select-all"
+            onClick={(e) => {
+              e.currentTarget.select();
+              copyToClipboard(jsonContent, 'JSON Payload copied!');
+            }}
+            className="w-full font-mono text-xs p-4 bg-slate-900 text-emerald-400 border border-slate-800 rounded-xl leading-relaxed select-all cursor-pointer"
           />
         )}
 
@@ -923,7 +973,11 @@ const UserProfileTool: React.FC<UserProfileToolProps> = ({
             rows={14}
             readOnly
             value={csvContent}
-            className="w-full font-mono text-xs p-4 bg-slate-900 text-blue-300 border border-slate-800 rounded-xl leading-relaxed select-all"
+            onClick={(e) => {
+              e.currentTarget.select();
+              copyToClipboard(csvContent, 'CSV copied!');
+            }}
+            className="w-full font-mono text-xs p-4 bg-slate-900 text-blue-300 border border-slate-800 rounded-xl leading-relaxed select-all cursor-pointer"
           />
         )}
 
@@ -933,7 +987,11 @@ const UserProfileTool: React.FC<UserProfileToolProps> = ({
             rows={14}
             readOnly
             value={sqlContent}
-            className="w-full font-mono text-xs p-4 bg-slate-900 text-amber-300 border border-slate-800 rounded-xl leading-relaxed select-all"
+            onClick={(e) => {
+              e.currentTarget.select();
+              copyToClipboard(sqlContent, 'SQL Inserts copied!');
+            }}
+            className="w-full font-mono text-xs p-4 bg-slate-900 text-amber-300 border border-slate-800 rounded-xl leading-relaxed select-all cursor-pointer"
           />
         )}
       </div>

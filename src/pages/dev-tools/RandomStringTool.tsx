@@ -242,11 +242,16 @@ const RandomStringTool: React.FC<RandomStringToolProps> = ({
           {generatedStrings.map((str, idx) => (
             <div
               key={idx}
-              className="flex items-center justify-between p-3 bg-slate-900 text-emerald-400 font-mono text-xs sm:text-sm rounded-xl border border-slate-800 shadow-xs"
+              onClick={() => copyToClipboard(str)}
+              className="flex items-center justify-between p-3 bg-slate-900 text-emerald-400 font-mono text-xs sm:text-sm rounded-xl border border-slate-800 shadow-xs cursor-pointer hover:border-slate-600 transition-colors"
+              title="Click to copy"
             >
               <span className="truncate select-all mr-2">{str}</span>
               <button
-                onClick={() => copyToClipboard(str)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  copyToClipboard(str);
+                }}
                 className="p-1.5 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-white transition-colors"
                 title="Copy string"
               >
