@@ -184,11 +184,11 @@ const UuidHashTool: React.FC<UuidHashToolProps> = ({ copyToClipboard }) => {
           <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
             Text to Hash:
           </label>
-          <input
-            type="text"
+          <textarea
             value={hashInput}
             onChange={(e) => setHashInput(e.target.value)}
-            className="w-full font-mono text-xs p-3 bg-slate-50 border border-gray-300 rounded-xl"
+            rows={3}
+            className="w-full font-mono text-xs p-3 bg-slate-50 border border-gray-300 rounded-xl resize-y"
           />
         </div>
 

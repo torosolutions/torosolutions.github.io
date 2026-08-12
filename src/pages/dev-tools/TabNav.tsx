@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { TAB_LIST } from './tabs';
-import type { TabType } from './tabs';
+import { TAB_LIST } from '../../constants/devTools';
+import type { TabType } from '../../constants/devTools';
 
 interface TabNavProps {
   activeTab: TabType;
