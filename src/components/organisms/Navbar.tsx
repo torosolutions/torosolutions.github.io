@@ -7,15 +7,9 @@ import {
   X,
   Home as HomeIcon,
   ChevronDown,
-  KeyRound,
-  AtSign,
-  Binary,
-  Lock,
-  FileCode,
   Sparkles,
-  FileText,
-  UserCheck,
 } from 'lucide-react';
+import { TAB_LIST } from '../../constants/devTools';
 
 const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -208,101 +202,20 @@ const Navbar: React.FC = () => {
                     Developer Tools
                   </div>
 
-                  <Link
-                    to="/dev-tools?tool=strings"
-                    className={`flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-colors ${
-                      isTabActive('strings')
-                        ? 'bg-blue-50 text-blue-700 font-bold'
-                        : 'text-gray-700 hover:bg-blue-50/60 hover:text-blue-600'
-                    }`}
-                  >
-                    <KeyRound className="w-4 h-4 text-blue-500" />
-                    <span>Random String Generator</span>
-                  </Link>
-
-                  <Link
-                    to="/dev-tools?tool=email"
-                    className={`flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-colors ${
-                      isTabActive('email')
-                        ? 'bg-blue-50 text-blue-700 font-bold'
-                        : 'text-gray-700 hover:bg-blue-50/60 hover:text-blue-600'
-                    }`}
-                  >
-                    <AtSign className="w-4 h-4 text-blue-500" />
-                    <span>Random Email Generator</span>
-                  </Link>
-
-                  <Link
-                    to="/dev-tools?tool=qa-profile"
-                    className={`flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-colors ${
-                      isTabActive('qa-profile')
-                        ? 'bg-blue-50 text-blue-700 font-bold'
-                        : 'text-gray-700 hover:bg-blue-50/60 hover:text-blue-600'
-                    }`}
-                  >
-                    <UserCheck className="w-4 h-4 text-blue-500" />
-                    <span>QA User Profile</span>
-                  </Link>
-
-                  <Link
-                    to="/dev-tools?tool=base64"
-                    className={`flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-colors ${
-                      isTabActive('base64')
-                        ? 'bg-blue-50 text-blue-700 font-bold'
-                        : 'text-gray-700 hover:bg-blue-50/60 hover:text-blue-600'
-                    }`}
-                  >
-                    <Binary className="w-4 h-4 text-blue-500" />
-                    <span>Base64 Encoder / Decoder</span>
-                  </Link>
-
-                  <Link
-                    to="/dev-tools?tool=encode"
-                    className={`flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-colors ${
-                      isTabActive('encode')
-                        ? 'bg-blue-50 text-blue-700 font-bold'
-                        : 'text-gray-700 hover:bg-blue-50/60 hover:text-blue-600'
-                    }`}
-                  >
-                    <Code2 className="w-4 h-4 text-blue-500" />
-                    <span>URL & HTML Encoder</span>
-                  </Link>
-
-                  <Link
-                    to="/dev-tools?tool=uuid-hash"
-                    className={`flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-colors ${
-                      isTabActive('uuid-hash')
-                        ? 'bg-blue-50 text-blue-700 font-bold'
-                        : 'text-gray-700 hover:bg-blue-50/60 hover:text-blue-600'
-                    }`}
-                  >
-                    <Lock className="w-4 h-4 text-blue-500" />
-                    <span>UUID & Hashes (MD5/SHA)</span>
-                  </Link>
-
-                  <Link
-                    to="/dev-tools?tool=json"
-                    className={`flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-colors ${
-                      isTabActive('json')
-                        ? 'bg-blue-50 text-blue-700 font-bold'
-                        : 'text-gray-700 hover:bg-blue-50/60 hover:text-blue-600'
-                    }`}
-                  >
-                    <FileCode className="w-4 h-4 text-blue-500" />
-                    <span>Text Case & JSON Beautifier</span>
-                  </Link>
-
-                  <Link
-                    to="/dev-tools?tool=lipsum"
-                    className={`flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-colors ${
-                      isTabActive('lipsum')
-                        ? 'bg-blue-50 text-blue-700 font-bold'
-                        : 'text-gray-700 hover:bg-blue-50/60 hover:text-blue-600'
-                    }`}
-                  >
-                    <FileText className="w-4 h-4 text-blue-500" />
-                    <span>Lorem Ipsum Generator</span>
-                  </Link>
+                  {TAB_LIST.map(({ id, label, icon: Icon }) => (
+                    <Link
+                      key={id}
+                      to={`/dev-tools?tool=${id}`}
+                      className={`flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-colors ${
+                        isTabActive(id)
+                          ? 'bg-blue-50 text-blue-700 font-bold'
+                          : 'text-gray-700 hover:bg-blue-50/60 hover:text-blue-600'
+                      }`}
+                    >
+                      <Icon className="w-4 h-4 text-blue-500" />
+                      <span>{label}</span>
+                    </Link>
+                  ))}
                 </div>
               </div>
             </div>
@@ -418,62 +331,16 @@ const Navbar: React.FC = () => {
 
             {devDropdownOpen && (
               <div className="pl-8 space-y-1 text-xs">
-                <Link
-                  to="/dev-tools?tool=strings"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block py-2 text-gray-600 hover:text-blue-600 font-medium"
-                >
-                  Random String Generator
-                </Link>
-                <Link
-                  to="/dev-tools?tool=email"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block py-2 text-gray-600 hover:text-blue-600 font-medium"
-                >
-                  Random Email Generator
-                </Link>
-                <Link
-                  to="/dev-tools?tool=qa-profile"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block py-2 text-gray-600 hover:text-blue-600 font-medium"
-                >
-                  QA User Profile
-                </Link>
-                <Link
-                  to="/dev-tools?tool=base64"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block py-2 text-gray-600 hover:text-blue-600 font-medium"
-                >
-                  Base64 Encoder / Decoder
-                </Link>
-                <Link
-                  to="/dev-tools?tool=encode"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block py-2 text-gray-600 hover:text-blue-600 font-medium"
-                >
-                  URL & HTML Encoder
-                </Link>
-                <Link
-                  to="/dev-tools?tool=uuid-hash"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block py-2 text-gray-600 hover:text-blue-600 font-medium"
-                >
-                  UUID & Hashes (MD5/SHA)
-                </Link>
-                <Link
-                  to="/dev-tools?tool=json"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block py-2 text-gray-600 hover:text-blue-600 font-medium"
-                >
-                  Text Case & JSON Beautifier
-                </Link>
-                <Link
-                  to="/dev-tools?tool=lipsum"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block py-2 text-gray-600 hover:text-blue-600 font-medium"
-                >
-                  Lorem Ipsum Generator
-                </Link>
+                {TAB_LIST.map(({ id, label }) => (
+                  <Link
+                    key={id}
+                    to={`/dev-tools?tool=${id}`}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="block py-2 text-gray-600 hover:text-blue-600 font-medium"
+                  >
+                    {label}
+                  </Link>
+                ))}
               </div>
             )}
           </div>

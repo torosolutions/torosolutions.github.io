@@ -53,11 +53,11 @@ const UrlHtmlEncoderTool: React.FC<UrlHtmlEncoderToolProps> = ({
           <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
             URL Input String:
           </label>
-          <input
-            type="text"
+          <textarea
             value={urlInput}
             onChange={(e) => setUrlInput(e.target.value)}
-            className="w-full font-mono text-xs p-3 bg-slate-50 border border-gray-300 rounded-xl"
+            rows={3}
+            className="w-full font-mono text-xs p-3 bg-slate-50 border border-gray-300 rounded-xl resize-y"
           />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -109,11 +109,11 @@ const UrlHtmlEncoderTool: React.FC<UrlHtmlEncoderToolProps> = ({
           <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
             HTML String:
           </label>
-          <input
-            type="text"
+          <textarea
             value={htmlInput}
             onChange={(e) => setHtmlInput(e.target.value)}
-            className="w-full font-mono text-xs p-3 bg-slate-50 border border-gray-300 rounded-xl"
+            rows={3}
+            className="w-full font-mono text-xs p-3 bg-slate-50 border border-gray-300 rounded-xl resize-y"
           />
         </div>
         <div>

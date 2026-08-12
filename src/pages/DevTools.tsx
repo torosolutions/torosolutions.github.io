@@ -4,8 +4,8 @@ import { Sparkles, RotateCcw } from 'lucide-react';
 import { clearStoredSettings } from '../utils/storage';
 import { useClipboardToast } from '../hooks/useClipboardToast';
 import TabNav from './dev-tools/TabNav';
-import { TAB_LIST } from './dev-tools/tabs';
-import type { TabType } from './dev-tools/tabs';
+import { TAB_LIST } from '../constants/devTools';
+import type { TabType } from '../constants/devTools';
 import Toast from './dev-tools/Toast';
 import RandomStringTool from './dev-tools/RandomStringTool';
 import RandomEmailTool from './dev-tools/RandomEmailTool';
@@ -15,6 +15,7 @@ import UuidHashTool from './dev-tools/UuidHashTool';
 import TextCaseJsonTool from './dev-tools/TextCaseJsonTool';
 import LipsumTool from './dev-tools/LipsumTool';
 import UserProfileTool from './dev-tools/UserProfileTool';
+import HtmlComposerTool from './dev-tools/HtmlComposerTool';
 
 const TAB_IDS = TAB_LIST.map((t) => t.id);
 
@@ -97,6 +98,9 @@ const DevTools: React.FC = () => {
         )}
         {activeTab === 'qa-profile' && (
           <UserProfileTool copyToClipboard={copyToClipboard} />
+        )}
+        {activeTab === 'html-composer' && (
+          <HtmlComposerTool copyToClipboard={copyToClipboard} />
         )}
       </div>
 

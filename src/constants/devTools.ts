@@ -8,6 +8,7 @@ import {
   KeyRound,
   FileText,
   UserCheck,
+  LayoutTemplate,
 } from 'lucide-react';
 
 export type TabType =
@@ -18,7 +19,8 @@ export type TabType =
   | 'uuid-hash'
   | 'json'
   | 'lipsum'
-  | 'qa-profile';
+  | 'qa-profile'
+  | 'html-composer';
 
 export const TAB_LIST: { id: TabType; label: string; icon: ElementType }[] = [
   { id: 'strings', label: 'Random String', icon: KeyRound },
@@ -29,4 +31,5 @@ export const TAB_LIST: { id: TabType; label: string; icon: ElementType }[] = [
   { id: 'uuid-hash', label: 'UUID & Hashes', icon: Lock },
   { id: 'json', label: 'Text Case & JSON', icon: FileCode },
   { id: 'lipsum', label: 'Lorem Ipsum', icon: FileText },
+  { id: 'html-composer', label: 'HTML Composer', icon: LayoutTemplate },
 ];
