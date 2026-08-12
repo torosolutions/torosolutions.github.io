@@ -51,6 +51,19 @@ jobs:
         run: npm install
       - name: Build
         run: npm run build
+      - name: Generate version.json
+        run: |
+          cat <<EOF > dist/version.json
+          {
+            "version": "$(node -p "require('./package.json').version")",
+            "commit": "${{ github.sha }}",
+            "commitShort": "${GITHUB_SHA::7}",
+            "branch": "${{ github.ref_name }}",
+            "buildTime": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+            "runId": "${{ github.run_id }}",
+            "runNumber": "${{ github.run_number }}"
+          }
+          EOF
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
