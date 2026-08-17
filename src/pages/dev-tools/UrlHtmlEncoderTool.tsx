@@ -134,6 +134,17 @@ const UrlHtmlEncoderTool: React.FC<UrlHtmlEncoderToolProps> = ({
             {htmlEncoded}
           </div>
         </div>
+        <div>
+          <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
+            Preview:
+          </label>
+          <iframe
+            title="HTML preview"
+            sandbox=""
+            srcDoc={htmlInput}
+            className="w-full min-h-[120px] p-3 bg-white border border-gray-300 rounded-xl"
+          />
+        </div>
       </div>
     </div>
   );
