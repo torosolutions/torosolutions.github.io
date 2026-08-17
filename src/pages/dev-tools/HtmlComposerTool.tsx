@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { LayoutTemplate, Copy, Eye, Code2, Loader2 } from 'lucide-react';
 import { usePersistentState } from '../../hooks/usePersistentState';
 import { loadScript, loadStylesheet } from '../../utils/loadExternal';
+import HtmlCodeEditor from './HtmlCodeEditor';
 
 interface HtmlComposerToolProps {
   copyToClipboard: (text: string, label?: string) => void;
@@ -20,6 +21,8 @@ declare global {
     };
   }
 }
+
+type QuillInstance = InstanceType<NonNullable<Window['Quill']>>;
 
 const QUILL_JS = 'https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js';
 const QUILL_CSS =
@@ -42,6 +45,9 @@ const HtmlComposerTool: React.FC<HtmlComposerToolProps> = ({
 
   const editorHostRef = useRef<HTMLDivElement>(null);
   const initialContentRef = useRef(htmlContent);
+  const quillRef = useRef<QuillInstance | null>(null);
+  const isQuillChange = useRef(false);
+  const [rawHtml, setRawHtml] = useState(htmlContent);
 
   useEffect(() => {
     let cancelled = false;
@@ -68,9 +74,12 @@ const HtmlComposerTool: React.FC<HtmlComposerToolProps> = ({
 
         quill.clipboard.dangerouslyPasteHTML(initialContentRef.current);
         quill.on('text-change', () => {
+          isQuillChange.current = true;
           setHtmlContent(quill.root.innerHTML);
+          setRawHtml(quill.root.innerHTML);
         });
 
+        quillRef.current = quill;
         setStatus('ready');
       })
       .catch(() => {
@@ -82,6 +91,24 @@ const HtmlComposerTool: React.FC<HtmlComposerToolProps> = ({
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Push edits made directly in the HTML editor back into the WYSIWYG
+  // editor, debounced so Quill doesn't re-normalize the markup (and fight
+  // the user's cursor) on every keystroke.
+  useEffect(() => {
+    if (isQuillChange.current) {
+      isQuillChange.current = false;
+      return;
+    }
+    const timeout = setTimeout(() => {
+      if (quillRef.current && quillRef.current.root.innerHTML !== rawHtml) {
+        setHtmlContent(rawHtml);
+        quillRef.current.clipboard.dangerouslyPasteHTML(rawHtml);
+      }
+    }, 500);
+    return () => clearTimeout(timeout);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rawHtml]);
 
   return (
     <div className="bg-white rounded-2xl border border-gray-200 p-6 sm:p-8 shadow-sm space-y-6">
@@ -146,29 +173,30 @@ const HtmlComposerTool: React.FC<HtmlComposerToolProps> = ({
               <Eye className="w-3.5 h-3.5" /> Preview
             </button>
           </div>
-          <button
-            onClick={() => copyToClipboard(htmlContent, 'HTML copied!')}
-            className="text-xs text-blue-600 font-semibold flex items-center gap-1"
-          >
-            <Copy className="w-3.5 h-3.5" /> Copy HTML
-          </button>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => copyToClipboard(rawHtml, 'HTML copied!')}
+              className="text-xs text-blue-600 font-semibold flex items-center gap-1"
+            >
+              <Copy className="w-3.5 h-3.5" /> Copy HTML
+            </button>
+          </div>
         </div>
 
+        <HtmlCodeEditor
+          value={rawHtml}
+          onChange={setRawHtml}
+          visible={view === 'code'}
+        />
+
         {view === 'code' ? (
-          <textarea
-            readOnly
-            rows={10}
-            value={htmlContent}
-            onClick={(e) => {
-              e.currentTarget.select();
-              copyToClipboard(htmlContent, 'HTML copied!');
-            }}
-            className="w-full font-mono text-xs p-3 bg-slate-900 text-emerald-400 border border-slate-800 rounded-xl cursor-pointer select-all"
-          />
+          <p className="text-[11px] text-gray-400 mt-1">
+            Edits here sync automatically into the WYSIWYG editor above.
+          </p>
         ) : (
           <div
             className="p-4 bg-white border border-gray-200 rounded-xl min-h-[100px]"
-            dangerouslySetInnerHTML={{ __html: htmlContent }}
+            dangerouslySetInnerHTML={{ __html: rawHtml }}
           />
         )}
       </div>
